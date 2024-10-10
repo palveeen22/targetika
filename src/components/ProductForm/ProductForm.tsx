@@ -1,17 +1,10 @@
-import { Controller, FieldError } from 'react-hook-form';
+import {FieldError } from 'react-hook-form';
 import { Input } from '../../components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '../../components/ui/select';
 import { Button } from '../../components/ui/button';
 import { useProductForm } from './hook/useProductForm';
-import { characteristicOptions, typeOptions, CharacteristicName } from './constants';
 import { ProductFormValues } from './hook/productFormSchema';
 import { ErrorMessage } from '../ErrorMessage';
+import { Characteristic } from './components/Characteristic';
 
 type TProductFormProps = {
   onSubmit: (data: ProductFormValues) => void;
@@ -19,11 +12,11 @@ type TProductFormProps = {
 
 export const ProductForm = ({ onSubmit }: TProductFormProps) => {
   const { form, fields, append, remove } = useProductForm();
-  const { register, control, handleSubmit, formState: { errors }, watch } = form;
-  const watchCharacteristics = watch("characteristics");
+  const { register, handleSubmit, formState: { errors } } = form;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full max-w-md">
+      {/* product name input */}
       <div>
         <Input
           {...register("productName")}
@@ -33,6 +26,7 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
         <ErrorMessage error={errors.productName} />
       </div>
 
+      {/* product code input */}
       <div>
         <Input
           {...register("productCode")}
@@ -46,101 +40,10 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
         />
         <ErrorMessage error={errors.productCode} />
       </div>
-
-      {fields.map((field, index) => (
-        <div key={field.id} className="space-y-2">
-          <Controller
-            name={`characteristics.${index}.name`}
-            control={control}
-            render={({ field }) => (
-              <>
-                <Select onValueChange={(value) => {
-                  field.onChange(value);
-                  if (value !== 'custom') {
-                    form.setValue(`characteristics.${index}.name`, value);
-                  }
-                }}
-                  value={field.value}
-                >
-                  <SelectTrigger>
-                    <SelectValue
-                      placeholder="Выберите характеристику"
-                      className='rounded-xl p-5 placeholder:text-sm'
-                    />
-                  </SelectTrigger>
-                  <SelectContent
-                    className="bg-white border border-gray-300 rounded-md shadow-lg"
-                  >
-                    {characteristicOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className="hover:bg-[#8D7FC7] hover:text-white">
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                    <SelectItem value="custom">Другое</SelectItem>
-                  </SelectContent>
-                </Select>
-                {field.value === 'custom' && (
-                  <Input
-                    {...register(`characteristics.${index}.name`)}
-                    placeholder="Введите свое значение"
-                    onChange={(e) => {
-                      form.setValue(`characteristics.${index}.name`, e.target.value);
-                    }}
-                  />
-                )}
-              </>
-            )}
-          />
-          <ErrorMessage error={errors.characteristics?.[index]?.name} />
-          <Controller
-            name={`characteristics.${index}.type`}
-            control={control}
-            render={({ field }) => (
-              <>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    if (value !== 'custom') {
-                      form.setValue(`characteristics.${index}.type`, value);
-                    }
-                  }}
-                  value={field.value}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Выберите тип" />
-                  </SelectTrigger>
-                  <SelectContent
-                    className="bg-white border border-gray-300 rounded-md shadow-lg"
-                  >
-                    {typeOptions[watchCharacteristics[index]?.name as CharacteristicName]?.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className="hover:bg-gray-100">
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                    <SelectItem value="custom">Другое</SelectItem>
-                  </SelectContent>
-                </Select>
-                {field.value === 'custom' && (
-                  <Input
-                    {...register(`characteristics.${index}.type`)}
-                    placeholder="Введите свое значение"
-                    onChange={(e) => {
-                      form.setValue(`characteristics.${index}.type`, e.target.value);
-                    }}
-                  />
-                )}
-              </>
-            )}
-          />
-          <ErrorMessage error={errors.characteristics?.[index]?.type as FieldError} />
-          <Button
-            type="button"
-            onClick={() => remove(index)}
-            className='border border-[#8D7FC7] p-5 mt-10 text-[#8D7FC7]'
-          >
-            Удалить характеристику
-          </Button>
-        </div>
+      
+        {/* select name input */}
+        {fields.map((field, index) => (
+        <Characteristic key={field.id} index={index} form={form} remove={remove} />
       ))}
 
       <div className='flex justify-between gap-4 items-center'>
