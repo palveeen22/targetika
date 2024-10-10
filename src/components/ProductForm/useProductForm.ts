@@ -17,16 +17,10 @@ export const useProductForm = () => {
     name: "characteristics",
   });
 
-  const onSubmit = (data: ProductFormValues) => {
-    console.log(data);
-    alert("Форма отправлена успешно");
-  };
-
   return {
     form,
     fields,
     append,
     remove,
-    onSubmit,
   };
 };
