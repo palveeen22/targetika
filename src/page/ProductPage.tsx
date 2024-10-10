@@ -1,23 +1,9 @@
-import { useState, useCallback } from 'react';
 import { ProductForm } from '@/components/ProductForm/ProductForm';
 import AlertMessage from '@/components/AlertMessage';
-import { ProductFormValues } from '@/components/ProductForm/hook/productFormSchema';
+import { useProduct } from '@/components/ProductForm/hook';
 
 const ProductPage = () => {
-  const [showAlert, setShowAlert] = useState(false);
-  const [key, setKey] = useState(0);
-
-  const resetForm = useCallback(() => {
-    setKey(prevKey => prevKey + 1);
-  }, []);
-
-  const handleSubmit = (data: ProductFormValues) => {
-    console.log('Form data:', data);
-    setShowAlert(true);
-    resetForm();
-
-    setTimeout(() => setShowAlert(false), 3000);
-  };
+const {showAlert, key,handleSubmit }= useProduct()
 
   return (
     <main className="w-full min-h-screen flex justify-center items-center bg-gray-100 px-8 md:px-0">

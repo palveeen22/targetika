@@ -1,4 +1,3 @@
-import React from 'react';
 import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import {
@@ -13,13 +12,13 @@ import { characteristicOptions, typeOptions, CharacteristicName } from '../const
 import { ProductFormValues } from '../hook/productFormSchema';
 import { ErrorMessage } from '@/components/ErrorMessage';
 
-type CharacteristicProps = {
+type TProps = {
   index: number;
   form: UseFormReturn<ProductFormValues>;
   remove: (index: number) => void;
 };
 
-export const Characteristic: React.FC<CharacteristicProps> = ({ index, form, remove }) => {
+export const Characteristic = ({ index, form, remove }: TProps) => {
   const { register, control, formState: { errors }, watch } = form;
   const watchCharacteristics = watch("characteristics");
 
