@@ -2,15 +2,15 @@ import {FieldError } from 'react-hook-form';
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { useProductForm } from './hook/useProductForm';
-import { ProductFormValues } from './hook/productFormSchema';
 import { ErrorMessage } from '../ErrorMessage';
 import { Characteristic } from './components/Characteristic';
+import { ProductFormValues } from './hook/productFormSchema';
 
-type TProductFormProps = {
+type TProps = {
   onSubmit: (data: ProductFormValues) => void;
 }
 
-export const ProductForm = ({ onSubmit }: TProductFormProps) => {
+export const ProductForm = ({ onSubmit }: TProps) => {
   const { form, fields, append, remove } = useProductForm();
   const { register, handleSubmit, formState: { errors } } = form;
 
