@@ -8,9 +8,9 @@ import {
   SelectValue
 } from '../../components/ui/select';
 import { Button } from '../../components/ui/button';
-import { useProductForm } from './useProductForm';
-import { characteristicOptions, typeOptions, CharacteristicName } from './productFormOptions';
-import { ProductFormValues } from './productFormSchema';
+import { useProductForm } from './hook/useProductForm';
+import { characteristicOptions, typeOptions, CharacteristicName } from './constants';
+import { ProductFormValues } from './hook/productFormSchema';
 import { ErrorMessage } from '../ErrorMessage';
 
 type TProductFormProps = {
@@ -20,7 +20,6 @@ type TProductFormProps = {
 export const ProductForm = ({ onSubmit }: TProductFormProps) => {
   const { form, fields, append, remove } = useProductForm();
   const { register, control, handleSubmit, formState: { errors }, watch } = form;
-
   const watchCharacteristics = watch("characteristics");
 
   return (
@@ -81,7 +80,6 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
             )}
           />
           <ErrorMessage error={errors.characteristics?.[index]?.name} />
-
           <Controller
             name={`characteristics.${index}.type`}
             control={control}
@@ -115,7 +113,6 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
             )}
           />
           <ErrorMessage error={errors.characteristics?.[index]?.type as FieldError} />
-
           <Button type="button" onClick={() => remove(index)}>Удалить характеристику</Button>
         </div>
       ))}

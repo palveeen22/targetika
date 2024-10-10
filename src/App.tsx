@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ProductFormValues } from './components/ProductForm/productFormSchema';
+import { ProductFormValues } from './components/ProductForm/hook/productFormSchema';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ProductForm } from './components/ProductForm/ProductForm';
 
