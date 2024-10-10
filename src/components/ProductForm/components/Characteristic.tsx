@@ -67,7 +67,7 @@ export const Characteristic: React.FC<CharacteristicProps> = ({ index, form, rem
         )}
       />
       <ErrorMessage error={errors.characteristics?.[index]?.name} />
-
+      
       <Controller
         name={`characteristics.${index}.type`}
         control={control}
