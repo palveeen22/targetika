@@ -54,15 +54,12 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
             control={control}
             render={({ field }) => (
               <>
-                <Select 
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    if (value !== 'custom') {
-                      form.setValue(`characteristics.${index}.name`, value);
-                    } else {
-                      form.setValue(`characteristics.${index}.name`, '');
-                    }
-                  }}
+                <Select onValueChange={(value) => {
+                  field.onChange(value);
+                  if (value !== 'custom') {
+                    form.setValue(`characteristics.${index}.name`, value);
+                  }
+                }}
                   value={field.value}
                 >
                   <SelectTrigger>
@@ -86,14 +83,15 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
                   <Input
                     {...register(`characteristics.${index}.name`)}
                     placeholder="Введите свое значение"
-                    className="mt-2"
+                    onChange={(e) => {
+                      form.setValue(`characteristics.${index}.name`, e.target.value);
+                    }}
                   />
                 )}
               </>
             )}
           />
           <ErrorMessage error={errors.characteristics?.[index]?.name} />
-          
           <Controller
             name={`characteristics.${index}.type`}
             control={control}
@@ -104,8 +102,6 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
                     field.onChange(value);
                     if (value !== 'custom') {
                       form.setValue(`characteristics.${index}.type`, value);
-                    } else {
-                      form.setValue(`characteristics.${index}.type`, '');
                     }
                   }}
                   value={field.value}
@@ -128,15 +124,15 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
                   <Input
                     {...register(`characteristics.${index}.type`)}
                     placeholder="Введите свое значение"
-                    className="mt-2"
+                    onChange={(e) => {
+                      form.setValue(`characteristics.${index}.type`, e.target.value);
+                    }}
                   />
                 )}
               </>
             )}
           />
-         <ErrorMessage error={errors.characteristics?.[index]?.name as FieldError} />
-         <ErrorMessage error={errors.characteristics?.[index]?.type as FieldError} />
-          
+          <ErrorMessage error={errors.characteristics?.[index]?.type as FieldError} />
           <Button
             type="button"
             onClick={() => remove(index)}
@@ -149,12 +145,13 @@ export const ProductForm = ({ onSubmit }: TProductFormProps) => {
 
       <div className='flex justify-between gap-4 items-center'>
         <div className='flex flex-col'>
-        {errors.characteristics?.root?.message && (
-            <ErrorMessage error={{ message: errors.characteristics.root.message }} />
+          {Array.isArray(errors.characteristics) ? (
+            errors.characteristics.map((error, index) => (
+              <ErrorMessage key={index} error={error as FieldError} />
+            ))
+          ) : (
+            <ErrorMessage error={errors.characteristics as FieldError} />
           )}
-          {Array.isArray(errors.characteristics) && errors.characteristics.map((error, index) => (
-            <ErrorMessage key={index} error={error} />
-          ))}
           <Button
             type="button"
             onClick={() => append({ name: '', type: '' })}
