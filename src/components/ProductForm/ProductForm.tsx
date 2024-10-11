@@ -5,6 +5,8 @@ import { useProductForm } from './hooks/useProductForm';
 import { ErrorMessage } from '../ErrorMessage';
 import { Characteristic } from './components/Characteristic';
 import { ProductFormValues } from './hooks/productFormSchema';
+import { IoAdd } from "react-icons/io5";
+
 
 type TProps = {
   onSubmit: (data: ProductFormValues) => void;
@@ -15,7 +17,7 @@ export const ProductForm = ({ onSubmit }: TProps) => {
   const { register, handleSubmit, formState: { errors } } = form;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full max-w-md">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
       {/* product name input */}
       <div>
         <Input
@@ -58,13 +60,16 @@ export const ProductForm = ({ onSubmit }: TProps) => {
           <Button
             type="button"
             onClick={() => append({ name: '', type: '' })}
-            className='bg-[#8D7FC7]  p-5 text-white hover:bg-white hover:text-[#8D7FC7]'
+            className='bg-[#8D7FC7] text-white hover:bg-white hover:text-[#8D7FC7] p-5 mt-5 w-full border border-[#8D7FC7] transition-colors duration-300'
           >
-            Добавить характеристику
+           <span className='flex justify-start gap-2 items-center'>
+           <IoAdd size={20} />
+           <p>Добавить характеристику</p>
+           </span>
           </Button>
         </div>
       </div>
-      <Button type="submit" className='bg-[#8D7FC7] p-5 mt-5 text-white hover:bg-white hover:text-[#8D7FC7] mr-auto'>Отправить</Button>
+      <Button type="submit" className='bg-[#8D7FC7] text-white hover:bg-white hover:text-[#8D7FC7] p-5 mt-5 w-full border border-[#8D7FC7] transition-colors duration-300'>Отправить</Button>
     </form>
   );
 };
