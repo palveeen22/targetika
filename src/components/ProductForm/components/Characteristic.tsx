@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { characteristicOptions, typeOptions, CharacteristicName } from '../constants';
-import { ProductFormValues } from '../hook/productFormSchema';
+import { ProductFormValues } from '../hooks/productFormSchema';
 import { ErrorMessage } from '@/components/ErrorMessage';
 
 type TProps = {
@@ -66,7 +66,7 @@ export const Characteristic = ({ index, form, remove }: TProps) => {
         )}
       />
       <ErrorMessage error={errors.characteristics?.[index]?.name} />
-      
+
       <Controller
         name={`characteristics.${index}.type`}
         control={control}

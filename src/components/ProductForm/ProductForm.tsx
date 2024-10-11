@@ -1,10 +1,10 @@
 import {FieldError } from 'react-hook-form';
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
-import { useProductForm } from './hook/useProductForm';
+import { useProductForm } from './hooks/useProductForm';
 import { ErrorMessage } from '../ErrorMessage';
 import { Characteristic } from './components/Characteristic';
-import { ProductFormValues } from './hook/productFormSchema';
+import { ProductFormValues } from './hooks/productFormSchema';
 
 type TProps = {
   onSubmit: (data: ProductFormValues) => void;
