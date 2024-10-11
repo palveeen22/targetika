@@ -1,4 +1,4 @@
-import { ProductFormValues } from "@/components/ProductForm/hook/productFormSchema"
+import { ProductFormValues } from "@/components/ProductForm/hooks/productFormSchema"
 
 export type TUseProduct = {
     showAlert: boolean

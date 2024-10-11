@@ -2,16 +2,18 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface TProps {
   show: boolean;
+  title: string;
+  desc: string;
 }
 
-const AlertMessage = ({ show }: TProps) => {
+const AlertMessage = ({ show, title, desc }: TProps) => {
   if (!show) return null;
 
   return (
     <Alert className="mb-6 border border-[#8D7FC7]">
-      <AlertTitle>Успех</AlertTitle>
+      <AlertTitle>{title}</AlertTitle>
       <AlertDescription>
-        Форма отправлена успешно
+        {desc}
       </AlertDescription>
     </Alert>
   );
