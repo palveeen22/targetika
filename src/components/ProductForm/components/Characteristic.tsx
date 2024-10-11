@@ -11,6 +11,8 @@ import { Button } from '@/components/ui/button';
 import { characteristicOptions, typeOptions, CharacteristicName } from '../constants';
 import { ProductFormValues } from '../hooks/productFormSchema';
 import { ErrorMessage } from '@/components/ErrorMessage';
+import { RiDeleteBinLine } from "react-icons/ri";
+
 
 type TProps = {
   index: number;
@@ -114,13 +116,15 @@ export const Characteristic = ({ index, form, remove }: TProps) => {
       />
       <ErrorMessage error={errors.characteristics?.[index]?.type as FieldError} />
 
-      <Button
-        type="button"
-        onClick={() => remove(index)}
-        className='border border-[#8D7FC7] p-5 mt-10 text-[#8D7FC7]'
-      >
-        Удалить характеристику
-      </Button>
+      <div className="flex justify-end mt-10">
+        <Button
+          type="button"
+          onClick={() => remove(index)}
+          className="border border-red-500 p-2"
+        >
+          <RiDeleteBinLine size={20} color='#ef4444'/>
+        </Button>
+      </div>
     </div>
   );
 };
