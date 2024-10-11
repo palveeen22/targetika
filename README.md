@@ -6,12 +6,12 @@
     </br>
 
    ```bash
-   git clone
+   git clone https://github.com/palveeen22/targetika-test.git
    ```
 
    </br>
 
-3. Install dependencies
+2. Install dependencies
    </br>
 
    ```bash
@@ -20,7 +20,7 @@
 
    </br>
 
-4. Run the app
+3. Run the app
    </br>
 
    ```bash
