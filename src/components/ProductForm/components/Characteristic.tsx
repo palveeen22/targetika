@@ -58,7 +58,7 @@ export const Characteristic = ({ index, form, remove }: TProps) => {
                 <Input
                   {...register(`characteristics.${index}.name`)}
                   placeholder="Введите новую характеристику"
-                  className="mt-2 p-5"
+                  className="mt-2 p-5 placeholder:text-gray-400"
                 />
               </>
             )}
@@ -88,12 +88,15 @@ export const Characteristic = ({ index, form, remove }: TProps) => {
               <SelectContent
                 className="bg-white border border-gray-300 rounded-md shadow-lg"
               >
-                {typeOptions[watchCharacteristics[index]?.name as CharacteristicName]?.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-                <SelectItem value="custom">Другое</SelectItem>
+                {typeOptions[watchCharacteristics[index]?.name as CharacteristicName] ? (
+                  typeOptions[watchCharacteristics[index]?.name as CharacteristicName].map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <SelectItem value="custom">Сначала Выберите характеристику</SelectItem>
+                )}
               </SelectContent>
             </Select>
             {(field.value === 'custom' || !typeOptions[watchCharacteristics[index]?.name as CharacteristicName]?.some(option => option.value === field.value)) && (
@@ -102,7 +105,7 @@ export const Characteristic = ({ index, form, remove }: TProps) => {
                 <Input
                   {...register(`characteristics.${index}.type`)}
                   placeholder="Введите новый тип"
-                  className="mt-2 p-5"
+                  className="mt-2 p-5 placeholder:text-gray-400"
                 />
               </>
             )}
